@@ -3,6 +3,7 @@
 import os
 import sys
 import getopt
+import ConfigParser
 
 from sys import stderr
 
@@ -55,8 +56,23 @@ def main(argv):
         short_usage()
         sys.exit(2)
 
-    aws_key = os.environ.get("AWS_ACCESS_KEY_ID")
-    aws_secret = os.environ.get("AWS_SECRET_ACCESS_KEY")
+    aws_key = None
+    aws_secret = None
+
+    try:
+        config_parser = ConfigParser.RawConfigParser()
+        config_parser.read(os.path.expanduser("~/.ec2-ssh.conf"))
+        section = "credentials"
+        if config_parser.has_option(section, "AWS_ACCESS_KEY_ID"):
+            aws_key = config_parser.get(section, "AWS_ACCESS_KEY_ID")
+        if config_parser.has_option(section, "AWS_SECRET_ACCESS_KEY"):
+            aws_secret = config_parser.get(section, "AWS_SECRET_ACCESS_KEY")
+    except Exception, e:
+        print >>sys.stderr, "Failed to parse %s: %s" % (config_file, e)
+        sys.exit(2)
+
+    aws_key = os.environ.get("AWS_ACCESS_KEY_ID") or aws_key
+    aws_secret = os.environ.get("AWS_SECRET_ACCESS_KEY") or aws_secret
     region = os.environ.get("AWS_EC2_REGION")
     tag = "Name"
 
