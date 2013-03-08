@@ -10,7 +10,7 @@ This fork adds the following changes:
 
 ##### Update ec2-host and ec2-ssh to read AWS credentials from ~/.ec2-ssh.conf.
 
-Save your access key and secret keys in your ~/.ec2-ssh.conf to avoid having to set your AWS credentials in environment variables.
+Save your access key and secret keys in your `~/.ec2-ssh.conf` to avoid having to set your AWS credentials in environment variables.
 
     [credentials]
     AWS_ACCESS_KEY_ID=[access_key]
