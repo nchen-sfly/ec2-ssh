@@ -12,10 +12,16 @@ This fork adds the following changes:
 
 Save your access key and secret keys in your `~/.ec2-ssh.conf` to avoid having to set your AWS credentials in environment variables.
 
-    [credentials]
+    [DEFAULT]
     AWS_ACCESS_KEY_ID=[access_key]
     AWS_SECRET_ACCESS_KEY=[secret_key]
 
+    [beta]
+    AWS_ACCESS_KEY_ID=[access_key]
+    AWS_SECRET_ACCESS_KEY=[secret_key]
+
+You can specify the environment section in `~/.ec2-ssh.conf` via the -e ENV option.
+    
 ##### Update ec2-ssh to add -i ID_FILE option for specifying ssh identity file
 
     $ ec2-ssh -i ~/.ssh/identity.pem 'Instance Tag'
